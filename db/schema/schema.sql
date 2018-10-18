@@ -22,12 +22,14 @@ CREATE TABLE `rotations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `rotation_details` (
+  `uuid` varchar(255) NOT NULL,
   `rotation_uuid` varchar(255) NOT NULL,
   `order_id` int(11) unsigned NOT NULL,
   `shift_uuid` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`rotation_uuid`,`order_id`,`shift_uuid`),
+  PRIMARY KEY (`uuid`),
+  UNIQUE KEY `unique_key` (`rotation_uuid`,`order_id`,`shift_uuid`),
   KEY `rotation_uuid` (`rotation_uuid`),
   KEY `shift_uuid` (`shift_uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
