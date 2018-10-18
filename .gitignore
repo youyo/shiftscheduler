@@ -1,0 +1,4 @@
+.envrc
+my.cnf*
+tmp/
+__*
