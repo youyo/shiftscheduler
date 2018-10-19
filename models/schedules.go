@@ -32,6 +32,23 @@ func GetSchedule(c *gin.Context, rotationUuid, date, hour string) (int, Users, e
 func QuerySchedule(c *gin.Context, sess *dbr.Session, rotationUuid, date, hour string) (int, Users, error) {
 	LoggerDebug(c, "Called models.QuerySchedule")
 
+	// check overrides
+	status, overrideUserUuids, err := QueryOverride(c, sess, rotationUuid, date, hour)
+	if err != nil {
+		LoggerError(c, fmt.Sprintf("check override error"))
+		return status, nil, err
+	}
+
+	if len(overrideUserUuids) != 0 {
+		var users Users
+		q := fmt.Sprintf("select uuid,name,phone_number from %s where uuid in ?", UsersTable)
+		if _, err := sess.SelectBySql(q, overrideUserUuids).Load(&users); err != nil {
+			LoggerError(c, fmt.Sprintf("failed to query. query: %s, uuid: %v", q, overrideUserUuids))
+			return 400, nil, err
+		}
+		return 200, users, nil
+	}
+
 	// get rotation start_date
 	LoggerDebug(c, "get rotation start_date")
 	var startDate string
@@ -146,4 +163,17 @@ func QuerySchedule(c *gin.Context, sess *dbr.Session, rotationUuid, date, hour s
 	}
 
 	return 200, users, nil
+}
+
+func QueryOverride(c *gin.Context, sess *dbr.Session, rotationUuid, date, hour string) (int, []string, error) {
+	LoggerDebug(c, "Called models.QueryOverride")
+
+	var userUuids []string
+	q := fmt.Sprintf("select user_uuid from %s where rotation_uuid=? and date=? and hour=?", OverridesTable)
+	if _, err := sess.SelectBySql(q, rotationUuid, date, hour).Load(&userUuids); err != nil {
+		LoggerError(c, fmt.Sprintf("failed to query. query: %s, rotation_uuid: %s, date: %s, hour: %s", q, rotationUuid, date, hour))
+		return 400, nil, err
+	}
+
+	return 200, userUuids, nil
 }
