@@ -88,7 +88,12 @@ func Setup() *gin.Engine {
 	api.GET("/schedules/:rotation_uuid/:date/:hour", controllers.GetSchedule)
 
 	// calendars
-	//api.GET("/calendars/:rotation_uuid/:date", controllers.GetCalendar)
+	api.GET("/calendars/:rotation_uuid", func(c *gin.Context) {
+		now := time.Now().In(time.Local)
+		date := now.Format("2006-01")
+		c.Redirect(301, "/api/calendars/"+c.Param("rotation_uuid")+"/"+date)
+	})
+	api.GET("/calendars/:rotation_uuid/:date", controllers.GetCalendar)
 
 	return r
 }
