@@ -17,7 +17,9 @@ const (
 )
 
 var (
-	Secret string = os.Getenv("JWT_SECRET")
+	Secret        string = os.Getenv("JWT_SECRET")
+	LoginUsername string = os.Getenv("LOGIN_USERNAME")
+	LoginPassword string = os.Getenv("LOGIN_PASSWORD")
 )
 
 type Login struct {
@@ -54,7 +56,7 @@ func Jwt() *jwt.GinJWTMiddleware {
 			userID := loginVals.Username
 			password := loginVals.Password
 
-			if userID == "admin" && password == "admin" {
+			if userID == LoginUsername && password == LoginPassword {
 				return &Login{
 					Username: userID,
 				}, nil
