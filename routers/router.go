@@ -1,16 +1,11 @@
 package routers
 
 import (
-	"os"
 	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/youyo/shiftscheduler/controllers"
 	"github.com/youyo/shiftscheduler/middlewares"
-)
-
-var (
-	Stage string = os.Getenv("STAGE")
 )
 
 func Setup() *gin.Engine {
