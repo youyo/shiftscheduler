@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gocraft/dbr"
 )
 
 const (
@@ -24,8 +25,11 @@ func GetSchedule(c *gin.Context, rotationUuid, date, hour string) (int, *Users, 
 		return 500, nil, err
 	}
 
-	// 通常フロー
+	status, users, err := QuerySchedule(c, sess, rotationUuid, date, hour)
+	return status, users, err
+}
 
+func QuerySchedule(c *gin.Context, sess *dbr.Session, rotationUuid, date, hour string) (int, *Users, error) {
 	// get rotation start_date
 	LoggerDebug(c, "get rotation start_date")
 	var startDate string
