@@ -58,7 +58,7 @@ func CreateRotationDetail(c *gin.Context, rotationUuid, shiftUuid string, orderI
 
 	uuid := GenUuid()
 
-	q := fmt.Sprintf("insert into %s (uuid,rotation_uuid,order_id,shift_uuid) values (?,?,?)", RotationDetailsTable)
+	q := fmt.Sprintf("insert into %s (uuid,rotation_uuid,order_id,shift_uuid) values (?,?,?,?)", RotationDetailsTable)
 	if _, err := tx.InsertBySql(q, uuid, rotationUuid, orderId, shiftUuid).Exec(); err != nil {
 		tx.Rollback()
 		LoggerError(c, fmt.Sprintf("failed to query. query: %s, uuid: %s, rotation_uuid: %s, order_id: %d, shift_uuid: %s", q, uuid, rotationUuid, orderId, shiftUuid))
