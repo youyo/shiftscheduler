@@ -2,6 +2,7 @@ package routers
 
 import (
 	"os"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/youyo/shiftscheduler/controllers"
@@ -76,6 +77,18 @@ func Setup() *gin.Engine {
 	api.GET("/reduces/:uuid", controllers.GetReduce)
 	api.DELETE("/reduces/:uuid", controllers.DeleteReduce)
 	//api.PATCH("/reduces/:uuid", controllers.PatchReduce)
+
+	// schedules
+	api.GET("/schedules/:rotation_uuid", func(c *gin.Context) {
+		now := time.Now().In(time.Local)
+		date := now.Format("2006-01-02")
+		hour := now.Format("15")
+		c.Redirect(301, "/api/schedules/"+c.Param("rotation_uuid")+"/"+date+"/"+hour)
+	})
+	api.GET("/schedules/:rotation_uuid/:date/:hour", controllers.GetSchedule)
+
+	// calendars
+	//api.GET("/calendars/:rotation_uuid/:date", controllers.GetCalendar)
 
 	return r
 }
