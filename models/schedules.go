@@ -15,8 +15,8 @@ const (
 	HourFormat     string = "15"
 )
 
-func GetSchedule(c *gin.Context, rotationUuid, date, hour string) (int, *Users, error) {
-	LoggerDebug(c, "Called models.GetSchedules")
+func GetSchedule(c *gin.Context, rotationUuid, date, hour string) (int, Users, error) {
+	LoggerDebug(c, "Called models.GetSchedule")
 
 	// create db session
 	LoggerDebug(c, "create db session")
@@ -29,7 +29,9 @@ func GetSchedule(c *gin.Context, rotationUuid, date, hour string) (int, *Users, 
 	return status, users, err
 }
 
-func QuerySchedule(c *gin.Context, sess *dbr.Session, rotationUuid, date, hour string) (int, *Users, error) {
+func QuerySchedule(c *gin.Context, sess *dbr.Session, rotationUuid, date, hour string) (int, Users, error) {
+	LoggerDebug(c, "Called models.QuerySchedule")
+
 	// get rotation start_date
 	LoggerDebug(c, "get rotation start_date")
 	var startDate string
@@ -53,7 +55,7 @@ func QuerySchedule(c *gin.Context, sess *dbr.Session, rotationUuid, date, hour s
 
 	duration := dateT.Sub(startDateT)
 	if duration < 0 {
-		var users *Users
+		var users Users
 		return 200, users, nil
 	}
 
@@ -128,6 +130,12 @@ func QuerySchedule(c *gin.Context, sess *dbr.Session, rotationUuid, date, hour s
 		return 400, nil, err
 	}
 
+	if len(userUuids) == 0 {
+		err := errors.New("matched user is not exist")
+		LoggerWarn(c, fmt.Sprintf("%v", err))
+		return 400, nil, err
+	}
+
 	// ユーザー情報取得
 	LoggerDebug(c, "get user info")
 	var users Users
@@ -137,5 +145,5 @@ func QuerySchedule(c *gin.Context, sess *dbr.Session, rotationUuid, date, hour s
 		return 400, nil, err
 	}
 
-	return 200, &users, nil
+	return 200, users, nil
 }
