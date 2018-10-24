@@ -3,6 +3,7 @@ package routers
 import (
 	"time"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/youyo/shiftscheduler/controllers"
 	"github.com/youyo/shiftscheduler/middlewares"
@@ -11,6 +12,10 @@ import (
 func Setup() *gin.Engine {
 	authMiddleware := middlewares.Jwt()
 	r := gin.Default()
+
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"http://127.0.0.1:3000"}
+	r.Use(cors.New(config))
 
 	r.GET("/", func(c *gin.Context) { c.Redirect(301, "/login") })
 	r.GET("/login", func(c *gin.Context) {
@@ -23,6 +28,11 @@ func Setup() *gin.Engine {
 
 	// refresh token
 	api.GET("/refresh_token", authMiddleware.RefreshHandler)
+
+	// auth check
+	api.GET("/auth_check", func(c *gin.Context) {
+		c.JSON(200, gin.H{"auth": "ok"})
+	})
 
 	// users
 	api.GET("/users", controllers.GetUsers)
