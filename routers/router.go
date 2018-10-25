@@ -14,7 +14,8 @@ func Setup() *gin.Engine {
 	r := gin.Default()
 
 	config := cors.DefaultConfig()
-	config.AllowOrigins = []string{"http://127.0.0.1:3000"}
+	config.AllowAllOrigins = true
+	config.AllowHeaders = []string{"*"}
 	r.Use(cors.New(config))
 
 	r.GET("/", func(c *gin.Context) { c.Redirect(301, "/login") })
