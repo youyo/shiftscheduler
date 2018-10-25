@@ -1,10 +1,13 @@
 package models
 
 import (
+	"runtime"
 	"strconv"
+	"sync"
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gocraft/dbr"
 )
 
 type (
@@ -37,6 +40,11 @@ func GetCalendar(c *gin.Context, rotationUuid, date string) (int, CalendarEvents
 		return 500, nil, err
 	}
 
+	//
+	var wg sync.WaitGroup
+	cpus := runtime.NumCPU()
+	semaphore := make(chan int, cpus)
+
 	// get schedules
 	for _, day := range days {
 		hours := []string{
@@ -45,28 +53,44 @@ func GetCalendar(c *gin.Context, rotationUuid, date string) (int, CalendarEvents
 			"20", "21", "22", "23",
 		}
 		for _, hour := range hours {
-			status, users, err := QuerySchedule(c, sess, rotationUuid, day, hour)
-			if err != nil {
-				return status, nil, err
-			}
-			if len(users) == 0 {
-				continue
-			}
+			wg.Add(1)
+			go func(c *gin.Context, sess *dbr.Session, rotationUuid, day, hour string) {
+				defer wg.Done()
+				semaphore <- 1
 
-			startDate, err := time.Parse("2006-01-02-15", day+"-"+hour)
-			if err != nil {
-				return 500, nil, err
-			}
-
-			for _, user := range users {
-				cal := CalendarEvent{
-					Title: user.Name,
-					Start: startDate.Format("2006-01-02T15:04:05"),
+				//status, users, err := QuerySchedule(c, sess, rotationUuid, day, hour)
+				_, users, err := QuerySchedule(c, sess, rotationUuid, day, hour)
+				if err != nil {
+					//return status, nil, err
+					<-semaphore
+					return
 				}
-				calendarEvents = append(calendarEvents, cal)
-			}
+				if len(users) == 0 {
+					//continue
+					<-semaphore
+					return
+				}
+
+				startDate, err := time.Parse("2006-01-02-15", day+"-"+hour)
+				if err != nil {
+					//return 500, nil, err
+					<-semaphore
+					return
+				}
+
+				for _, user := range users {
+					cal := CalendarEvent{
+						Title: user.Name,
+						Start: startDate.Format("2006-01-02T15:04:05"),
+					}
+					calendarEvents = append(calendarEvents, cal)
+				}
+
+				<-semaphore
+			}(c, sess, rotationUuid, day, hour)
 		}
 	}
+	wg.Wait()
 
 	return 200, calendarEvents, nil
 }
