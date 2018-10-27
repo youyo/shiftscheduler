@@ -1,0 +1,9 @@
+.envrc
+my.cnf*
+tmp/
+__*
+.git/
+.gitignore
+Dockerfile
+*_test.go
+vendor/
