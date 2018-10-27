@@ -43,7 +43,7 @@ func QuerySchedule(c *gin.Context, sess *dbr.Session, rotationUuid, date, hour s
 		var users Users
 		q := fmt.Sprintf("select uuid,name,phone_number from %s where uuid in ?", UsersTable)
 		if _, err := sess.SelectBySql(q, overrideUserUuids).Load(&users); err != nil {
-			LoggerError(c, fmt.Sprintf("failed to query. query: %s, uuid: %v", q, overrideUserUuids))
+			LoggerError(c, fmt.Sprintf("failed to query. query: %s, uuid: %v, err: %v", q, overrideUserUuids, err))
 			return 400, nil, err
 		}
 		return 200, users, nil
