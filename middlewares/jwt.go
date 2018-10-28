@@ -65,7 +65,7 @@ func Jwt() *jwt.GinJWTMiddleware {
 			return nil, jwt.ErrFailedAuthentication
 		},
 		Authorizator: func(data interface{}, c *gin.Context) bool {
-			if v, ok := data.(*Login); ok && v.Username == "admin" {
+			if v, ok := data.(*Login); ok && v.Username == LoginUsername {
 				return true
 			}
 
