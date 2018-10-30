@@ -14,12 +14,12 @@ const (
 type (
 	Reduce struct {
 		Uuid         string    `json:"uuid"`
-		RotationUuid string    `json:"rotation_uuid"`
-		Date         string    `json:"date"`
-		Hour         string    `json:"hour"`
-		UserUuid     string    `json:"user_uuid"`
-		CreatedAt    time.Time `json:"created_at"`
-		UpdatedAt    time.Time `json:"updated_at"`
+		RotationUuid string    `json:"rotation_uuid" binding:"required"`
+		Date         string    `json:"date" binding:"required"`
+		Hour         string    `json:"hour" binding:"required"`
+		UserUuid     string    `json:"user_uuid" binding:"required"`
+		CreatedAt    time.Time `json:"created_at,omitempty"`
+		UpdatedAt    time.Time `json:"updated_at,omitempty"`
 	}
 
 	Reduces []Reduce

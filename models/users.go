@@ -14,10 +14,10 @@ const (
 type (
 	User struct {
 		Uuid        string    `json:"uuid"`
-		Name        string    `json:"name"`
-		PhoneNumber string    `json:"phone_number"`
-		CreatedAt   time.Time `json:"created_at"`
-		UpdatedAt   time.Time `json:"updated_at"`
+		Name        string    `json:"name" binding:"required"`
+		PhoneNumber string    `json:"phone_number" binding:"required"`
+		CreatedAt   time.Time `json:"created_at,omitempty"`
+		UpdatedAt   time.Time `json:"updated_at,omitempty"`
 	}
 
 	Users []User

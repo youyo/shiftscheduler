@@ -14,11 +14,11 @@ const (
 type (
 	RotationDetail struct {
 		Uuid         string    `json:"uuid"`
-		RotationUuid string    `json:"rotation_uuid"`
-		OrderId      int       `json:"order_id"`
-		ShiftUuid    string    `json:"shift_uuid"`
-		CreatedAt    time.Time `json:"created_at"`
-		UpdatedAt    time.Time `json:"updated_at"`
+		RotationUuid string    `json:"rotation_uuid" binding:"required"`
+		OrderId      int       `json:"order_id" binding:"required"`
+		ShiftUuid    string    `json:"shift_uuid" binding:"required"`
+		CreatedAt    time.Time `json:"created_at,omitempty"`
+		UpdatedAt    time.Time `json:"updated_at,omitempty"`
 	}
 
 	RotationDetails []RotationDetail

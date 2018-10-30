@@ -14,10 +14,10 @@ const (
 type (
 	Rotation struct {
 		Uuid      string    `json:"uuid"`
-		Name      string    `json:"name"`
-		StartDate string    `json:"start_date"`
-		CreatedAt time.Time `json:"created_at"`
-		UpdatedAt time.Time `json:"updated_at"`
+		Name      string    `json:"name" binding:"required"`
+		StartDate string    `json:"start_date" binding:"required"`
+		CreatedAt time.Time `json:"created_at,omitempty"`
+		UpdatedAt time.Time `json:"updated_at,omitempty"`
 	}
 
 	Rotations []Rotation

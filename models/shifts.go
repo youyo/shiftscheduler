@@ -15,11 +15,11 @@ const (
 type (
 	Shift struct {
 		Uuid     string `json:"uuid"`
-		Name     string `json:"name"`
-		UserUuid string `json:"user_uuid"`
+		Name     string `json:"name" binding:"required"`
+		UserUuid string `json:"user_uuid" binding:"required"`
 		ShiftDetail
-		CreatedAt time.Time `json:"created_at"`
-		UpdatedAt time.Time `json:"updated_at"`
+		CreatedAt time.Time `json:"created_at,omitempty"`
+		UpdatedAt time.Time `json:"updated_at,omitempty"`
 	}
 
 	ShiftDetail struct {
