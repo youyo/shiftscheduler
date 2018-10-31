@@ -89,7 +89,7 @@ func Setup() *gin.Engine {
 		now := time.Now().In(time.Local)
 		date := now.Format("2006-01-02")
 		hour := now.Format("15")
-		c.Redirect(301, "/api/schedules/"+c.Param("rotation_uuid")+"/"+date+"/"+hour)
+		c.Redirect(303, "/api/schedules/"+c.Param("rotation_uuid")+"/"+date+"/"+hour)
 	})
 	api.GET("/schedules/:rotation_uuid/:date/:hour", controllers.GetSchedule)
 
@@ -97,7 +97,7 @@ func Setup() *gin.Engine {
 	api.GET("/calendars/:rotation_uuid", func(c *gin.Context) {
 		now := time.Now().In(time.Local)
 		date := now.Format("2006-01")
-		c.Redirect(301, "/api/calendars/"+c.Param("rotation_uuid")+"/"+date)
+		c.Redirect(303, "/api/calendars/"+c.Param("rotation_uuid")+"/"+date)
 	})
 	api.GET("/calendars/:rotation_uuid/:date", controllers.GetCalendar)
 
