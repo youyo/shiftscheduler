@@ -1,6 +1,7 @@
 github.com/appleboy/gin-jwt v0.0.0-20181016011525-475d8d97c219 h1:RkdZLlH7byh+hWOD5UtjwA8PseV67Mg5iMSZqJO9y00=
 github.com/appleboy/gin-jwt v0.0.0-20181016011525-475d8d97c219/go.mod h1:F8sVziwQLiyhs/OASI+WQ+j9iG7mVYn/+cVZGfF4fUk=
 github.com/appleboy/gofight v2.0.0+incompatible/go.mod h1:H/tvof1oZHnZdlBd+AeODZGkk1C+D2na0NXr0iXuZHA=
+github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/dgrijalva/jwt-go v3.2.0+incompatible h1:7qlOGliEKZXTDg6OTjfoBKDXWrumCAMpl/TFQ4/5kLM=
 github.com/dgrijalva/jwt-go v3.2.0+incompatible/go.mod h1:E3ru+11k8xSBh+hMPgOLZmtrrCbhqsmaPHjLKYnJCaQ=
@@ -24,8 +25,10 @@ github.com/json-iterator/go v0.0.0-20170804232253-1cfa233923ea/go.mod h1:+SdeFBv
 github.com/manucorporat/sse v0.0.0-20160126180136-ee05b128a739/go.mod h1:zUx1mhth20V3VKgL5jbd1BSQcW4Fy6Qs4PZvQwRFwzM=
 github.com/mattn/go-isatty v0.0.0-20170307163044-57fdcb988a5c h1:AHfQR/s6GNi92TOh+kfGworqDvTxj2rMsS+Hca87nck=
 github.com/mattn/go-isatty v0.0.0-20170307163044-57fdcb988a5c/go.mod h1:M+lRXTBqGeGNdLjl/ufCoiOlB5xdOkqRJdNxMWT7Zi4=
+github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/stretchr/objx v0.0.0-20150928122152-1a9d0bb9f541/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
+github.com/stretchr/testify v0.0.0-20170130113145-4d4bfba8f1d1 h1:Zx8Rp9ozC4FPFxfEKRSUu8+Ay3sZxEUZ7JrCWMbGgvE=
 github.com/stretchr/testify v0.0.0-20170130113145-4d4bfba8f1d1/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
 github.com/tidwall/gjson v0.0.0-20180429151328-3cd3a1192327/go.mod h1:c/nTNbUr0E0OrXEhq1pwa8iEgc2DOt4ZZqAt1HtCkPA=
 github.com/tidwall/match v0.0.0-20171002075945-1731857f09b1/go.mod h1:LujAq0jyVjBy028G1WhWfIzbpQfMO8bBZ6Tyb0+pL9E=

@@ -8,4 +8,5 @@ require (
 	github.com/gocraft/dbr v0.0.0-20181024183608-018a08e13b8a
 	github.com/google/uuid v1.0.0
 	github.com/hashicorp/logutils v1.0.0
+	github.com/stretchr/testify v0.0.0-20170130113145-4d4bfba8f1d1
 )
