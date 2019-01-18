@@ -12,7 +12,7 @@ import (
 
 const (
 	IdentityKey       string        = "id"
-	Lifetime          time.Duration = 72 * time.Hour
+	Lifetime          time.Duration = 90 * 24 * time.Hour
 	MaxRefreshTimeout time.Duration = Lifetime
 )
 
