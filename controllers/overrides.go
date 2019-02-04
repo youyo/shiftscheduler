@@ -9,7 +9,8 @@ func GetOverrides(c *gin.Context) {
 	SetRequestId(c)
 	LoggerDebug(c, "Called controllers.GetOverrides")
 
-	status, message, err := models.GetOverrides(c)
+	allRecords := c.DefaultQuery("all", "false")
+	status, message, err := models.GetOverrides(c, allRecords)
 	c.JSON(status, response(message, err))
 }
 

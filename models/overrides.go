@@ -25,7 +25,7 @@ type (
 	Overrides []Override
 )
 
-func GetOverrides(c *gin.Context) (int, *Overrides, error) {
+func GetOverrides(c *gin.Context, allRecords string) (int, *Overrides, error) {
 	LoggerDebug(c, "Called models.GetOverrides")
 
 	sess, err := NewDbSession()
@@ -34,7 +34,13 @@ func GetOverrides(c *gin.Context) (int, *Overrides, error) {
 	}
 
 	var overrides Overrides
-	q := fmt.Sprintf("select * from %s", OverridesTable)
+	var q string
+	switch allRecords {
+	case "true":
+		q = fmt.Sprintf("select * from %s", OverridesTable)
+	default:
+		q = fmt.Sprintf("select * from %s ", OverridesTable) + "where date >= date_format(now(), '%Y-%m-%d')"
+	}
 	if _, err := sess.SelectBySql(q).Load(&overrides); err != nil {
 		LoggerError(c, fmt.Sprintf("failed to query. query: %s", q))
 		return 400, nil, err

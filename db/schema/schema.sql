@@ -223,7 +223,8 @@ CREATE TABLE `overrides` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`uuid`),
   KEY `user_uuid` (`user_uuid`),
-  KEY `rotation_uuid` (`rotation_uuid`)
+  KEY `rotation_uuid` (`rotation_uuid`),
+  KEY `date` (`date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `additionals` (
@@ -236,7 +237,8 @@ CREATE TABLE `additionals` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`uuid`),
   KEY `user_uuid` (`user_uuid`),
-  KEY `rotation_uuid` (`rotation_uuid`)
+  KEY `rotation_uuid` (`rotation_uuid`),
+  KEY `date` (`date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `reduces` (
@@ -249,5 +251,6 @@ CREATE TABLE `reduces` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`uuid`),
   KEY `user_uuid` (`user_uuid`),
-  KEY `rotation_uuid` (`rotation_uuid`)
+  KEY `rotation_uuid` (`rotation_uuid`),
+  KEY `date` (`date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
