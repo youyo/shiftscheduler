@@ -59,7 +59,7 @@ func GetCalendar(c *gin.Context, rotationUuid, date string) (int, CalendarEvents
 				semaphore <- 1
 
 				//status, users, err := QuerySchedule(c, sess, rotationUuid, day, hour)
-				_, users, err := QuerySchedule(c, sess, rotationUuid, day, hour)
+				_, users, err := QuerySchedules(c, sess, rotationUuid, day, hour)
 				if err != nil {
 					//return status, nil, err
 					<-semaphore
