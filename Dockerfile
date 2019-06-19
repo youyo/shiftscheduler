@@ -1,4 +1,4 @@
-FROM golang:1.11 AS build-env
+FROM golang:1.12 AS build-env
 LABEL maintainer "youyo <1003ni2@gmail.com>"
 ENV GO111MODULE on
 ENV DIR /go/src/github.com/youyo/shiftscheduler
