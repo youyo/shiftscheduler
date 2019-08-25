@@ -181,12 +181,12 @@ func QuerySchedule(c *gin.Context, sess *dbr.Session, rotationUuid, date, hour s
 
 	// order_id 確定
 	LoggerDebug(c, "get order_id")
-	for days > totalDays {
+	for days >= totalDays {
 		days = days - totalDays
 	}
 	orderId := 0
 	for orderIdStart := 1; orderIdStart <= maxOrderId; orderIdStart++ {
-		if days <= orderIdStart*7 {
+		if days < orderIdStart*7 {
 			orderId = orderIdStart
 			break
 		}
