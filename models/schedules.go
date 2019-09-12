@@ -87,15 +87,13 @@ func QuerySchedules(c *gin.Context, sess *dbr.Session, rotationUuid, date, hour 
 	}
 
 	if len(reduceUserUuids) != 0 {
-		results := []string{}
-		for _, userUuid := range userUuids {
-			for _, reduceUserUuid := range reduceUserUuids {
-				if userUuid != reduceUserUuid {
-					results = append(results, userUuid)
+		for _, reduceUserUuid := range reduceUserUuids {
+			for index, userUuid := range userUuids {
+				if userUuid == reduceUserUuid {
+					userUuids = unset(userUuids, index)
 				}
 			}
 		}
-		userUuids = results
 	}
 
 	// ユーザー情報取得
@@ -269,4 +267,11 @@ func QueryReduce(c *gin.Context, sess *dbr.Session, rotationUuid, date, hour str
 	}
 
 	return 200, userUuids, nil
+}
+
+func unset(s []string, i int) []string {
+	if i >= len(s) {
+		return s
+	}
+	return append(s[:i], s[i+1:]...)
 }
